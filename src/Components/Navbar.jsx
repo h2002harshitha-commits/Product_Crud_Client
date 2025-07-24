@@ -417,7 +417,7 @@ export default function Navbar({ user, setUser, mode, setMode }) {
                   display: { xs: 'none', sm: 'block' },
                 }}
               >
-                ShopCart
+                ShopCart2
               </Typography>
             </Box>
 
