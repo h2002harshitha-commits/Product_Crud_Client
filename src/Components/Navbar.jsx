@@ -258,7 +258,7 @@ export default function Navbar({ user, setUser, mode, setMode }) {
         {user && (
           <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
             <Avatar
-              src={`http://localhost:7000/uploads/product/${user?.profile}`}
+              src={`https://product-crud-server.onrender.com/uploads/product/${user?.profile}`}
               sx={{ width: 50, height: 50, mr: 2, border: '2px solid rgba(255, 255, 255, 0.3)' }}
             />
             <Box>
@@ -441,7 +441,7 @@ export default function Navbar({ user, setUser, mode, setMode }) {
             {/* Right Side Actions */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               {/* Search Icon */}
-              <Tooltip title="Search">
+              {/* <Tooltip title="Search">
                 <IconButton
                   color="inherit"
                   sx={{
@@ -457,10 +457,10 @@ export default function Navbar({ user, setUser, mode, setMode }) {
                 >
                   <Search />
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
 
               {/* Notifications */}
-              <Tooltip title="Notifications">
+              {/* <Tooltip title="Notifications">
                 <IconButton
                   color="inherit"
                   sx={{
@@ -478,7 +478,7 @@ export default function Navbar({ user, setUser, mode, setMode }) {
                     <Notifications />
                   </Badge>
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
 
               {/* Theme Toggle (Desktop) */}
               {!isMobile && (
@@ -520,7 +520,7 @@ export default function Navbar({ user, setUser, mode, setMode }) {
                     >
                       <Avatar
                         alt={user?.name}
-                        src={`http://localhost:7000/uploads/product/${user?.profile}`}
+                        src={`https://product-crud-server.onrender.com/uploads/product/${user?.profile}`}
                         sx={{
                           width: 40,
                           height: 40,

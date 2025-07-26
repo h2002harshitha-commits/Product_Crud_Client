@@ -16,6 +16,7 @@ import axios from 'axios';
 import BrowseProducts from './Pages/BrowseProducts';
 import ProductDetails from './Pages/ProductDetails';
 import Profile from './Pages/Profile';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -32,7 +33,7 @@ function App() {
   }), [mode]);
 
   const getUserProfile = () => {
-    axios.get("http://localhost:7000/user/getProfile", {
+    axios.get("https://product-crud-server.onrender.com/user/getProfile", {
       headers: { "auth-token": token },
     })
       .then((res) => {
@@ -60,14 +61,65 @@ function App() {
           <div style={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/insert" element={<InsertProduct token={token} />} />
+              {/* <Route path="/insert" element={<InsertProduct token={token} />} />
               <Route path="/products" element={<Product products={products} token={token} />} />
               <Route path="/browse" element={<BrowseProducts token={token} />} />
               <Route path="/view/:id" element={<ProductDetails token={token} />} />
               <Route path="/update-product/:id" element={<UpdateProduct />} />
-              <Route path="/profile" element={<Profile user={user} />} />
+              <Route path="/profile" element={<Profile user={user} />} /> */}
+
+<Route
+  path="/insert"
+  element={
+    <ProtectedRoute user={user}>
+      <InsertProduct token={token} />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/products"
+  element={
+    <ProtectedRoute user={user}>
+      <Product token={token} />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/browse"
+  element={
+    <ProtectedRoute user={user}>
+      <BrowseProducts token={token} />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/view/:id"
+  element={
+    <ProtectedRoute user={user}>
+      <ProductDetails token={token} />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/update-product/:id"
+  element={
+    <ProtectedRoute user={user}>
+      <UpdateProduct />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/profile"
+  element={
+    <ProtectedRoute user={user}>
+      <Profile user={user} />
+    </ProtectedRoute>
+  }
+/>
+
               <Route path="/login" element={<Login setUser={setUser} />} />
               <Route path="/register" element={<Register />} />
+              
             </Routes>
           </div>
           <Footer />

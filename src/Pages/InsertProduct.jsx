@@ -99,7 +99,7 @@ export default function InsertProduct({ token }) {
 
     try {
       const res = await axios.post(
-        "http://localhost:7000/product/insert", 
+        "https://product-crud-server.onrender.com/product/insert", 
         data, 
         { headers: { "auth-token": token } }
       );

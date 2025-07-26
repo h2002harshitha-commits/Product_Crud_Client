@@ -32,7 +32,7 @@ export default function UpdateProduct({token}) {
   });
   useEffect(() => {
     axios
-      .get("http://localhost:7000/product/view-single-product/" + id,{
+      .get("https://product-crud-server.onrender.com/product/view-single-product/" + id,{
         headers: {"auth-token": token},
       })
       .then((res) => {
@@ -92,7 +92,7 @@ export default function UpdateProduct({token}) {
     }
 
     axios
-      .put("http://localhost:7000/product/update-product/" + id, productData,{
+      .put("https://product-crud-server.onrender.com/product/update-product/" + id, productData,{
         headers: {"auth-token":token},
       })
       .then((res) => {

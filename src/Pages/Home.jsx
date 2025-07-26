@@ -1,82 +1,68 @@
+// Make sure you have MUI v5+ and imports set up
 import React, { useState, useEffect } from 'react';
 import {
-  Box,
-  Typography,
-  Button,
-  Container,
-  Grid,
-  Paper,
-  Card,
-  CardContent,
-  Fade,
-  Zoom,
-  IconButton,
-  useTheme,
-  useMediaQuery,
+  Box, Typography, Button, Container, Grid, Paper, Card,
+  CardContent, Fade, Zoom, IconButton, useTheme, useMediaQuery,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import {
-  Search,
-  ShoppingCart,
-  LocalShipping,
-  TrendingUp,
-  Security,
-  Speed,
-  ArrowForward,
-  Star,
-  Verified,
-  Support,
-  Facebook,
-  Twitter,
-  Instagram,
-  LinkedIn,
+  ShoppingCart, LocalShipping, TrendingUp, Security,
+  Speed, ArrowForward, Star, Verified, Support,
+  Facebook, Twitter, Instagram, LinkedIn,
 } from '@mui/icons-material';
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.up('md'));
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  // Use theme-based background colors for cards/paper
+  const getBackground = (baseColor) =>
+    theme.palette.mode === 'dark'
+      ? 'rgba(30, 30, 30, 0.6)'
+      : `linear-gradient(135deg, rgba(${baseColor}, 0.08), rgba(${baseColor}, 0.02))`;
+
+  const getBorder = (baseColor) =>
+    theme.palette.mode === 'dark'
+      ? '1px solid rgba(255, 255, 255, 0.1)'
+      : `1px solid rgba(${baseColor}, 0.2)`;
+
   const features = [
-    {
-      icon: <Search sx={{ fontSize: 60 }} />,
-      title: 'Smart Search',
-      description: 'AI-powered search to find exactly what you need in seconds',
-      color: '#667eea',
-    },
     {
       icon: <ShoppingCart sx={{ fontSize: 60 }} />,
       title: 'Easy Shopping',
       description: 'Seamless cart experience with one-click purchasing',
-      color: '#f093fb',
+      color: 'f093fb',
     },
     {
       icon: <LocalShipping sx={{ fontSize: 60 }} />,
       title: 'Fast Delivery',
       description: 'Lightning-fast delivery with real-time tracking',
-      color: '#4facfe',
+      color: '4facfe',
     },
     {
       icon: <Security sx={{ fontSize: 60 }} />,
       title: 'Secure Payments',
       description: 'Bank-level security for all your transactions',
-      color: '#43e97b',
+      color: '43e97b',
     },
     {
       icon: <Speed sx={{ fontSize: 60 }} />,
       title: 'Lightning Fast',
       description: 'Optimized performance for the best user experience',
-      color: '#fa709a',
+      color: 'fa709a',
     },
     {
       icon: <Support sx={{ fontSize: 60 }} />,
       title: '24/7 Support',
       description: 'Always here to help with dedicated customer support',
-      color: '#ffecd2',
+      color: 'ffecd2',
     },
   ];
 
@@ -87,32 +73,21 @@ export default function Home() {
     { number: '24/7', label: 'Support', icon: <Support /> },
   ];
 
+  // **HERO SECTION**
   return (
     <>
-      {/* Hero Section */}
       <Box
         sx={{
           width: '100%',
           minHeight: '100vh',
-          background: `
-            linear-gradient(135deg, 
-              rgba(102, 126, 234, 0.9) 0%, 
-              rgba(118, 75, 162, 0.9) 50%,
-              rgba(240, 147, 251, 0.9) 100%
-            ),
-            url(pexels-mccutcheon-1191710.jpg)
-          `,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: { xs: 'scroll', md: 'fixed' },
+          background: theme.palette.mode === 'dark'
+            ? 'linear-gradient(135deg, rgba(50, 60, 120, 0.8), rgba(40, 35, 70, 0.9))'
+            : 'linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9), rgba(240, 147, 251, 0.9))',
           display: 'flex',
           alignItems: 'center',
-          position: 'relative',
-          overflow: 'hidden',
+          justifyContent: 'center',
         }}
       >
-        {/* Animated Background Elements */}
         <Box
           sx={{
             position: 'absolute',
@@ -128,114 +103,129 @@ export default function Home() {
               '0%, 100%': { transform: 'translate(-10px, -10px) rotate(0deg)' },
               '50%': { transform: 'translate(10px, 10px) rotate(180deg)' },
             },
+            opacity: theme.palette.mode === 'dark' ? 0.3 : 0.7,
           }}
         />
-
-        {/* Content */}
         <Container
-          maxWidth="lg"
+          maxWidth="md"
           sx={{
-            zIndex: 2,
             textAlign: 'center',
-            color: '#fff',
-            py: { xs: 8, md: 12 },
+            zIndex: 1,
+            py: { xs: 8, md: 10 },
+            px: { xs: 2, md: 4 },
           }}
         >
           <Fade in={isVisible} timeout={1000}>
             <Box>
-              <Typography
+              {/* <Typography
                 variant="h1"
                 sx={{
-                  fontWeight: 900,
+                  fontWeight: theme.typography.fontWeightBold,
                   mb: 3,
-                  fontSize: { xs: '2.5rem', sm: '4rem', md: '5rem' },
+                  fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem' },
                   background: 'linear-gradient(45deg, #fff, #f0f8ff)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  textShadow: '0 4px 20px rgba(0,0,0,0.3)',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.1,
+                  textShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                  letterSpacing: { sm: '-0.02em' },
+                  lineHeight: 1.2,
                 }}
               >
                 Shop Smarter,
                 <br />
                 Live Better
-              </Typography>
+              </Typography> */}
+
+<Typography
+  variant="h1"
+  sx={{
+    fontWeight: theme.typography.fontWeightBold,
+    mb: 3,
+    fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem' },
+    background: theme.palette.mode === 'dark'
+      ? 'linear-gradient(45deg, #fff, #ccc)'
+      : 'linear-gradient(45deg, #fff, #f0f8ff)',
+    backgroundClip: 'text',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    textShadow: theme.palette.mode === 'dark' ? '0 2px 8px rgba(0,0,0,0.3)' : 'none',
+    letterSpacing: { sm: '-0.02em' },
+    lineHeight: 1.2,
+  }}
+>
+  Shop Smarter,
+  <br />
+  Live Better
+</Typography>
+
 
               <Typography
-                variant="h5"
+                variant={isMobile ? 'body1' : 'h5'}
                 sx={{
-                  mb: 6,
-                  px: { xs: 2, sm: 4, md: 8 },
-                  fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.5rem' },
-                  lineHeight: 1.6,
-                  fontWeight: 300,
-                  textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                  mb: { xs: 4, md: 6 },
+                  px: { xs: 1, md: 8 },
+                  color: 'rgba(255, 255, 255, 0.9)',
                   maxWidth: '800px',
                   mx: 'auto',
+                  lineHeight: 1.6,
+                  fontWeight: theme.typography.fontWeightLight,
                 }}
               >
                 Experience the future of online shopping with our AI-powered platform.
-                Discover millions of products, enjoy lightning-fast delivery, and shop
-                with confidence.
+                Discover millions of products, enjoy lightning-fast delivery, and shop with confidence.
               </Typography>
-
               <Box
                 sx={{
                   display: 'flex',
                   flexDirection: { xs: 'column', sm: 'row' },
                   gap: 3,
                   justifyContent: 'center',
-                  alignItems: 'center',
                 }}
               >
                 <Button
                   component={Link}
                   to="/products"
                   variant="contained"
-                  size="large"
+                  size={isMobile ? 'medium' : 'large'}
                   endIcon={<ArrowForward />}
                   sx={{
                     background: 'linear-gradient(45deg, #667eea, #764ba2)',
-                    fontWeight: 700,
-                    px: { xs: 4, sm: 6 },
-                    py: 2,
-                    fontSize: { xs: '1rem', sm: '1.2rem' },
+                    fontWeight: theme.typography.fontWeightBold,
+                    px: 4,
+                    py: { xs: 1.2, sm: 2 },
+                    fontSize: { xs: '1rem', sm: '1.1rem' },
                     borderRadius: 6,
-                    boxShadow: '0 8px 32px rgba(102, 126, 234, 0.4)',
-                    minWidth: { xs: 250, sm: 200 },
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    boxShadow: '0 4px 20px rgba(102, 126, 234, 0.3)',
+                    minWidth: { xs: '100%', sm: 200 },
+                    transition: 'all 0.3s ease',
                     '&:hover': {
                       background: 'linear-gradient(45deg, #764ba2, #667eea)',
-                      boxShadow: '0 12px 40px rgba(102, 126, 234, 0.6)',
-                      transform: 'translateY(-4px) scale(1.05)',
+                      boxShadow: '0 8px 28px rgba(102, 126, 234, 0.5)',
+                      transform: 'translateY(-3px)',
                     },
                   }}
                 >
                   Start Shopping
                 </Button>
-
                 <Button
                   variant="outlined"
-                  size="large"
+                  size={isMobile ? 'medium' : 'large'}
                   sx={{
-                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                    color: '#fff',
                     fontWeight: 600,
-                    px: { xs: 4, sm: 6 },
-                    py: 2,
-                    fontSize: { xs: '1rem', sm: '1.2rem' },
+                    px: 4,
+                    py: { xs: 1.2, sm: 2 },
+                    fontSize: { xs: '1rem', sm: '1.1rem' },
                     borderRadius: 6,
-                    borderWidth: 2,
-                    minWidth: { xs: 250, sm: 200 },
                     backdropFilter: 'blur(10px)',
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    transition: 'all 0.3s ease',
+                    border: '2px solid rgba(255,255,255,0.4)',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    minWidth: { xs: '100%', sm: 200 },
                     '&:hover': {
-                      borderColor: '#fff',
                       backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                      transform: 'translateY(-2px)',
+                      borderColor: '#fff',
+                      color: '#fff',
                     },
                   }}
                 >
@@ -244,34 +234,42 @@ export default function Home() {
               </Box>
             </Box>
           </Fade>
-
-          {/* Stats Section */}
           <Fade in={isVisible} timeout={1500}>
-            <Grid container spacing={3} sx={{ mt: 8 }}>
+            <Grid
+              container
+              spacing={3}
+              sx={{
+                mt: { xs: 6, sm: 8 },
+                justifyContent: 'center',
+              }}
+            >
               {stats.map((stat, index) => (
-                <Grid item xs={6} md={3} key={index}>
-                  <Box
+                <Grid item xs={6} sm={4} md={3} key={index}>
+                  <Paper
+                    elevation={theme.palette.mode === 'dark' ? 2 : 0}
                     sx={{
-                      textAlign: 'center',
-                      backdropFilter: 'blur(20px)',
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
-                      borderRadius: 3,
                       p: 3,
+                      borderRadius: 3,
+                      backdropFilter: 'blur(16px)',
+                      backgroundColor: theme.palette.mode === 'dark'
+                        ? 'rgba(20, 20, 20, 0.6)'
+                        : 'rgba(255, 255, 255, 0.15)',
+                      textAlign: 'center',
                       transition: 'all 0.3s ease',
                       '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                        transform: 'translateY(-5px)',
+                        backgroundColor: theme.palette.mode === 'dark'
+                          ? 'rgba(40, 40, 40, 0.6)'
+                          : 'rgba(255, 255, 255, 0.25)',
+                        transform: 'translateY(-4px)',
                       },
                     }}
                   >
-                    <Box sx={{ color: '#fff', mb: 1 }}>{stat.icon}</Box>
                     <Typography
                       variant="h4"
                       sx={{
-                        fontWeight: 800,
+                        fontWeight: theme.typography.fontWeightBold,
                         color: '#fff',
-                        fontSize: { xs: '1.5rem', md: '2rem' },
+                        mb: 1,
                       }}
                     >
                       {stat.number}
@@ -279,13 +277,14 @@ export default function Home() {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: 'rgba(255, 255, 255, 0.8)',
-                        fontSize: { xs: '0.8rem', md: '1rem' },
+                        color: theme.palette.mode === 'dark'
+                          ? 'rgba(255, 255, 255, 0.8)'
+                          : 'rgba(255, 255, 255, 0.9)',
                       }}
                     >
                       {stat.label}
                     </Typography>
-                  </Box>
+                  </Paper>
                 </Grid>
               ))}
             </Grid>
@@ -293,23 +292,22 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* Features Section */}
+      {/* FEATURES */}
       <Box
         sx={{
-          py: { xs: 8, md: 12 },
-          background: 'linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%)',
+          py: { xs: 8, md: 10 },
+          backgroundColor: theme.palette.background.default,
           position: 'relative',
         }}
       >
         <Container maxWidth="lg">
           <Fade in={isVisible} timeout={2000}>
-            <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Box textAlign="center" mb={8}>
               <Typography
                 variant="h2"
                 sx={{
-                  fontWeight: 800,
+                  fontWeight: theme.typography.fontWeightBold,
                   mb: 3,
-                  fontSize: { xs: '2rem', md: '3.5rem' },
                   background: 'linear-gradient(45deg, #667eea, #764ba2)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
@@ -320,70 +318,40 @@ export default function Home() {
               </Typography>
               <Typography
                 variant="h6"
+                color="text.secondary"
                 sx={{
-                  color: 'text.secondary',
-                  maxWidth: '600px',
+                  maxWidth: 700,
                   mx: 'auto',
-                  fontSize: { xs: '1rem', md: '1.2rem' },
                   lineHeight: 1.6,
                 }}
               >
-                Discover the features that make us the preferred choice for millions
-                of shoppers worldwide
+                Discover the features that make us the preferred choice for millions of shoppers worldwide
               </Typography>
             </Box>
           </Fade>
-
-          <Grid container spacing={4}>
+          <Grid container spacing={4} justifyContent="center">
             {features.map((feature, index) => (
               <Grid item xs={12} sm={6} lg={4} key={index}>
                 <Zoom in={isVisible} timeout={1000 + index * 200}>
                   <Card
                     sx={{
+                      borderRadius: 3,
                       height: '100%',
-                      background: `linear-gradient(135deg, ${feature.color}15, ${feature.color}05)`,
-                      border: `2px solid ${feature.color}30`,
-                      borderRadius: 4,
-                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                      cursor: 'pointer',
-                      position: 'relative',
-                      overflow: 'hidden',
+                      background: getBackground(feature.color),
+                      border: getBorder(feature.color),
+                      transition: 'all 0.3s ease',
                       '&:hover': {
-                        transform: 'translateY(-12px) scale(1.02)',
-                        boxShadow: `0 20px 60px ${feature.color}40`,
-                        '& .feature-icon': {
-                          transform: 'scale(1.1) rotate(5deg)',
-                        },
-                        '& .feature-bg': {
-                          transform: 'scale(1.1)',
-                          opacity: 0.1,
-                        },
+                        transform: 'translateY(-8px)',
+                        boxShadow: `0 16px 24px rgba(${feature.color}, 0.2)`,
                       },
                     }}
                   >
-                    {/* Background decoration */}
-                    <Box
-                      className="feature-bg"
-                      sx={{
-                        position: 'absolute',
-                        top: -50,
-                        right: -50,
-                        width: 150,
-                        height: 150,
-                        background: `radial-gradient(circle, ${feature.color}20, transparent)`,
-                        borderRadius: '50%',
-                        transition: 'all 0.4s ease',
-                        opacity: 0.05,
-                      }}
-                    />
-
-                    <CardContent sx={{ p: 4, textAlign: 'center', position: 'relative' }}>
+                    <CardContent sx={{ p: 4, textAlign: 'center' }}>
                       <Box
-                        className="feature-icon"
                         sx={{
-                          color: feature.color,
+                          color: `#${feature.color}`,
                           mb: 3,
-                          transition: 'all 0.4s ease',
+                          transition: 'all 0.3s ease',
                         }}
                       >
                         {feature.icon}
@@ -391,20 +359,19 @@ export default function Home() {
                       <Typography
                         variant="h5"
                         sx={{
-                          fontWeight: 700,
+                          fontWeight: theme.typography.fontWeightBold,
                           mb: 2,
-                          color: '#1a1a1a',
-                          fontSize: { xs: '1.3rem', md: '1.5rem' },
+                          color: theme.palette.text.primary,
+                          fontSize: { xs: '1.25rem', md: '1.5rem' },
                         }}
                       >
                         {feature.title}
                       </Typography>
                       <Typography
                         variant="body1"
+                        color={theme.palette.text.secondary}
                         sx={{
-                          color: 'text.secondary',
                           lineHeight: 1.6,
-                          fontSize: { xs: '0.9rem', md: '1rem' },
                         }}
                       >
                         {feature.description}
@@ -418,58 +385,72 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* CTA Section */}
+      {/* CTA BANNER */}
       <Box
         sx={{
-          py: { xs: 8, md: 12 },
-          background: 'linear-gradient(135deg, #667eea, #764ba2)',
+          py: { xs: 8, md: 10 },
+          backgroundColor: theme.palette.mode === 'dark'
+            ? '#1a1a1a'
+            : 'linear-gradient(135deg, #667eea, #764ba2)',
+          color: '#fff',
           position: 'relative',
-          overflow: 'hidden',
         }}
       >
-        {/* Background Animation */}
-        <Box
-          sx={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            background: `
-              radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%)
-            `,
-            animation: 'pulse 4s ease-in-out infinite alternate',
-            '@keyframes pulse': {
-              '0%': { opacity: 0.5 },
-              '100%': { opacity: 1 },
-            },
-          }}
-        />
-
         <Container maxWidth="md" sx={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <Fade in={isVisible} timeout={2500}>
             <Box>
-              <Typography
-                variant="h3"
+              {/* <Typography
+                variant="h2"
                 sx={{
-                  fontWeight: 800,
+                  fontWeight: theme.typography.fontWeightBold,
                   mb: 3,
                   color: '#fff',
-                  fontSize: { xs: '2rem', md: '3rem' },
                 }}
               >
                 Ready to Transform Your Shopping?
-              </Typography>
-              <Typography
-                variant="h6"
+              </Typography> */}
+
+<Typography
+  variant="h2"
+  sx={{
+    color: theme.palette.text.primary,
+    fontWeight: theme.typography.fontWeightBold,
+    mb: 2,
+    textAlign: 'center',
+  }}
+>
+  Ready to Transform Your Shopping?
+</Typography>
+
+
+              {/* <Typography
+                variant="h5"
+                color="rgba(255, 255, 255, 0.9)"
                 sx={{
                   mb: 6,
-                  color: 'rgba(255, 255, 255, 0.9)',
-                  fontSize: { xs: '1rem', md: '1.2rem' },
+                  maxWidth: 800,
+                  mx: 'auto',
                   lineHeight: 1.6,
                 }}
               >
-                Join millions of satisfied customers and experience the future of online shopping today
-              </Typography>
+                Join millions of satisfied customers and experience the future of online shopping today.
+              </Typography> */}
+
+<Typography
+  variant="h6"
+  sx={{
+    color: theme.palette.text.primary,
+    mb: 4,
+    maxWidth: '600px',
+    mx: 'auto',
+    textAlign: 'center',
+  }}
+>
+  Join millions of satisfied customers and experience the future of online shopping today.
+</Typography>
+
+
+
               <Button
                 component={Link}
                 to="/products"
@@ -479,17 +460,19 @@ export default function Home() {
                 sx={{
                   backgroundColor: '#fff',
                   color: '#667eea',
-                  fontWeight: 700,
+                  fontWeight: theme.typography.fontWeightBold,
                   px: 6,
                   py: 2,
-                  fontSize: '1.2rem',
+                  fontSize: '1.1rem',
                   borderRadius: 6,
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+                  boxShadow: 2,
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    backgroundColor: '#f8f9fa',
+                    backgroundColor: theme.palette.mode === 'dark'
+                      ? '#f8f9fa'
+                      : '#e6e9ed',
                     transform: 'translateY(-4px)',
-                    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.3)',
+                    boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
                   },
                 }}
               >
@@ -500,12 +483,12 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <Box
         sx={{
-          py: 6,
-          background: 'linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%)',
-          color: '#fff',
+          py: { xs: 6, md: 8 },
+          backgroundColor: theme.palette.grey[900],
+          color: theme.palette.grey[100],
         }}
       >
         <Container maxWidth="lg">
@@ -514,112 +497,125 @@ export default function Home() {
               <Typography
                 variant="h4"
                 sx={{
-                  fontWeight: 800,
-                  mb: 2,
+                  fontWeight: theme.typography.fontWeightBold,
                   background: 'linear-gradient(45deg, #667eea, #764ba2)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
+                  mb: 2,
                 }}
               >
                 ShopCart
               </Typography>
               <Typography
                 variant="body1"
-                sx={{
-                  mb: 3,
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  lineHeight: 1.6,
-                }}
+                color={theme.palette.grey[300]}
+                sx={{ mb: 3, lineHeight: 1.6 }}
               >
-                Revolutionizing the way you shop online with cutting-edge technology
-                and unparalleled customer service.
+                Revolutionizing shopping with cutting-edge technology and exceptional service.
               </Typography>
-              <Box sx={{ display: 'flex', gap: 2 }}>
-                {[Facebook, Twitter, Instagram, LinkedIn].map((Icon, index) => (
+              {/* <Box sx={{ display: 'flex', gap: 2 }}>
+                {[Facebook, Twitter, Instagram, LinkedIn].map((Icon, i) => (
                   <IconButton
-                    key={index}
+                    key={i}
                     sx={{
-                      color: 'rgba(255, 255, 255, 0.7)',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      color: theme.palette.grey[400],
                       '&:hover': {
-                        color: '#fff',
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        color: '#667eea',
+                        backgroundColor: theme.palette.grey[800],
                       },
                     }}
                   >
                     <Icon />
                   </IconButton>
                 ))}
-              </Box>
+              </Box> */}
             </Grid>
-
-            <Grid item xs={6} md={2}>
-              <Typography variant="h6" sx={{ fontWeight: 700, mb: 3 }}>
+            <Grid item xs={6} sm={4} md={2}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: theme.typography.fontWeightBold,
+                  mb: { xs: 2, md: 3 },
+                  color: theme.palette.grey[100],
+                }}
+              >
                 Company
               </Typography>
-              {['About Us', 'Careers', 'Press', 'Blog'].map((item) => (
-                <Typography
-                  key={item}
-                  variant="body2"
-                  sx={{
-                    mb: 1,
-                    color: 'rgba(255, 255, 255, 0.7)',
-                    cursor: 'pointer',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: '#667eea' },
-                  }}
-                >
-                  {item}
-                </Typography>
-              ))}
+              <Box>
+                {['About', 'Careers', 'Press', 'Blog'].map((item) => (
+                  <Typography
+                    key={item}
+                    variant="body1"
+                    color={theme.palette.grey[400]}
+                    sx={{
+                      mb: 1,
+                      cursor: 'pointer',
+                      '&:hover': { color: '#667eea' },
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                ))}
+              </Box>
             </Grid>
-
-            <Grid item xs={6} md={2}>
-              <Typography variant="h6" sx={{ fontWeight: 700, mb: 3 }}>
+            <Grid item xs={6} sm={4} md={2}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: theme.typography.fontWeightBold,
+                  mb: { xs: 2, md: 3 },
+                  color: theme.palette.grey[100],
+                }}
+              >
                 Support
               </Typography>
-              {['Help Center', 'Contact Us', 'Privacy Policy', 'Terms'].map((item) => (
-                <Typography
-                  key={item}
-                  variant="body2"
-                  sx={{
-                    mb: 1,
-                    color: 'rgba(255, 255, 255, 0.7)',
-                    cursor: 'pointer',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: '#667eea' },
-                  }}
-                >
-                  {item}
-                </Typography>
-              ))}
+              <Box>
+                {['Help Center', 'Contact Us', 'Privacy', 'Terms'].map((item) => (
+                  <Typography
+                    key={item}
+                    variant="body1"
+                    color={theme.palette.grey[400]}
+                    sx={{
+                      mb: 1,
+                      cursor: 'pointer',
+                      '&:hover': { color: '#667eea' },
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                ))}
+              </Box>
             </Grid>
-
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6" sx={{ fontWeight: 700, mb: 3 }}>
+            <Grid item xs={12} sm={6} md={4}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: theme.typography.fontWeightBold,
+                  mb: { xs: 2, md: 3 },
+                  color: theme.palette.grey[100],
+                }}
+              >
                 Newsletter
               </Typography>
-              <Typography
-                variant="body2"
-                sx={{ mb: 3, color: 'rgba(255, 255, 255, 0.7)' }}
-              >
-                Stay updated with our latest offers and products
+              <Typography color={theme.palette.grey[400]} sx={{ mb: 2 }}>
+                Stay updated with latest offers and products.
               </Typography>
-              <Box sx={{ display: 'flex', gap: 1 }}>
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                 <Box
                   component="input"
                   placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   sx={{
                     flex: 1,
+                    backgroundColor: theme.palette.grey[800],
+                    border: '1px solid rgba(255,255,255,0.1)',
                     p: 1.5,
                     borderRadius: 2,
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    color: '#fff',
+                    color: theme.palette.grey[100],
                     '&::placeholder': {
-                      color: 'rgba(255, 255, 255, 0.5)',
+                      color: theme.palette.grey[500],
                     },
                     '&:focus': {
                       outline: 'none',
@@ -632,6 +628,7 @@ export default function Home() {
                   sx={{
                     background: 'linear-gradient(45deg, #667eea, #764ba2)',
                     px: 3,
+                    borderRadius: 2,
                     '&:hover': {
                       background: 'linear-gradient(45deg, #764ba2, #667eea)',
                     },
@@ -642,20 +639,16 @@ export default function Home() {
               </Box>
             </Grid>
           </Grid>
-
           <Box
             sx={{
               mt: 6,
               pt: 4,
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              borderTop: '1px solid rgba(255,255,255,0.1)',
               textAlign: 'center',
             }}
           >
-            <Typography
-              variant="body2"
-              sx={{ color: 'rgba(255, 255, 255, 0.5)' }}
-            >
-              © 2025 ShopCart. All rights reserved. Made with ❤️ for amazing shoppers.
+            <Typography variant="body2" color={theme.palette.grey[500]}>
+              © 2025 ShopCart. All rights reserved.
             </Typography>
           </Box>
         </Container>

@@ -14,7 +14,7 @@ export default function Login({ setUser }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(form);
-        axios.post("http://localhost:7000/user/login", form)
+        axios.post("https://product-crud-server.onrender.com/user/login", form)
             .then((res) => {
                 // console.log(res.data);
                 if (res.data.success) {

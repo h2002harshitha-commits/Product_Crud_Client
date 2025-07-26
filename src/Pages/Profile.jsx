@@ -31,7 +31,7 @@ export default function Profile({ user }) {
 
       // If user already has a profile picture, set it as preview
       if (user.picture) {
-        setPreview(`http://localhost:7000/uploads/${user.picture}`);
+        setPreview(`https://product-crud-server.onrender.com/uploads/${user.picture}`);
       }
     }
   }, [user]);
