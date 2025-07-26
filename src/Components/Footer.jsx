@@ -18,7 +18,7 @@ export default function Footer() {
       component="footer"
       sx={{
         background: isDark
-          ? 'linear-gradient(to right, #212121, #000000)'
+          ? 'linear-gradient(to right, #212121, #0f010fff)'
           : 'linear-gradient(to right, #1976d2, #0d47a1)',
         color: isDark ? '#f5f5f5' : 'white',
         textAlign: 'center',

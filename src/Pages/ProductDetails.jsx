@@ -24,7 +24,7 @@ export default function ProductDetails({ token }) {
     // Fetch current product details
      window.scrollTo({ top: 0, behavior: 'smooth' }); 
     axios
-      .get(`http://localhost:7000/product/view-product-details/${id}`, {
+      .get(`https://product-crud-server.onrender.com/product/view-product-details/${id}`, {
         headers: { "auth-token": token },
       })
       .then((res) => {
@@ -35,7 +35,7 @@ export default function ProductDetails({ token }) {
           // Fetch recommended products based on category & userId
           axios
             .get(
-              `http://localhost:7000/product/recommended?category=${product.category}&userId=${product.userId._id}&excludeId=${product._id}`,
+              `https://product-crud-server.onrender.com/product/recommended?category=${product.category}&userId=${product.userId._id}&excludeId=${product._id}`,
               {
                 headers: { "auth-token": token },
               }
@@ -84,7 +84,7 @@ export default function ProductDetails({ token }) {
         {/* Left Side: Product Image */}
         <Box flex={1}>
           <img
-            src={`http://localhost:7000/uploads/product/${productInfo.picture}`}
+            src={`https://product-crud-server.onrender.com/uploads/product/${productInfo.picture}`}
             alt="Product"
             style={{
               width: "100%",
@@ -123,7 +123,7 @@ export default function ProductDetails({ token }) {
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
               <Avatar
-                src={`http://localhost:7000/uploads/product/${productInfo.userId?.profile}`}
+                src={`https://product-crud-server.onrender.com/uploads/product/${productInfo.userId?.profile}`}
               />
               <Typography variant="body1">
                 {productInfo.userId?.name}
@@ -178,7 +178,7 @@ export default function ProductDetails({ token }) {
                 >
                   <CardMedia
                     component="img"
-                    image={`http://localhost:7000/uploads/product/${productInfo.picture}`}
+                    image={`https://product-crud-server.onrender.com/uploads/product/${productInfo.picture}`}
                     alt={productInfo.name}
                     sx={{
                       height: 200,

@@ -31,7 +31,7 @@ export default function Product({ token }) {
   const handleDelete = (productInfo) => {
     console.log(productInfo)
     axios
-      .delete("http://localhost:7000/product/delete/" + productInfo?._id ,{
+      .delete("https://product-crud-server.onrender.com/product/delete/" + productInfo?._id ,{
         headers: { "auth-token": token },
 
       })
@@ -50,7 +50,7 @@ export default function Product({ token }) {
   }
   console.log(token)
   useEffect(() => {
-    axios.get("http://localhost:7000/product/view-all-products", {
+    axios.get("https://product-crud-server.onrender.com/product/view-all-products", {
       headers: { "auth-token": token },
     }
     )
@@ -94,7 +94,7 @@ export default function Product({ token }) {
                 <TableRow key={index}>
                   <TableCell >
                     <Avatar variant='square'
-                      src={`http://localhost:7000/uploads/product/${p?.picture}`} />
+                      src={`https://product-crud-server.onrender.com/uploads/product/${p?.picture}`} />
                   </TableCell>
                   <TableCell>{p?.name}</TableCell>
                   <TableCell>₹{p?.price}</TableCell>

@@ -42,7 +42,7 @@ setForm ({...form,[e.target.name]: e.target.value});
     userData.append("password",form?.password);
     userData.append("profile",form?.picture);
     
-    axios.post("http://localhost:7000/user/register",userData)
+    axios.post("https://product-crud-server.onrender.com/user/register",userData)
     .then((res) => {
         // console.log(res.data);
         if(res.data.success) {

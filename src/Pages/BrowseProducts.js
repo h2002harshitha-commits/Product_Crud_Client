@@ -11,7 +11,7 @@ export default function BrowseProducts({ token }) {
     const [search, setSearch] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:7000/product/view-others-products", {
+        axios.get("https://product-crud-server.onrender.com/product/view-others-products", {
             headers: { "auth-token": token },
         })
             .then((res) => {
@@ -88,7 +88,7 @@ export default function BrowseProducts({ token }) {
                                 }}
                             >
                                 <img
-                                    src={`http://localhost:7000/uploads/product/${product?.picture}`}
+                                    src={`https://product-crud-server.onrender.com/uploads/product/${product?.picture}`}
                                     alt={product?.name}
                                     style={{
                                         width: "100%",
